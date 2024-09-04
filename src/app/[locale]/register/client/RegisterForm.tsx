@@ -4,10 +4,9 @@ import Input from '@/components/Input'
 import PasswordInput from '@/components/PasswordInput'
 import { Button } from '@nextui-org/button'
 import { Form, Formik } from 'formik'
-import { Link } from '@/navigation'
 import * as Yup from 'yup'
 
-type LoginFormProps = {
+type RegisterFormProps = {
     messages: {
         email: string
         enterEmail: string
@@ -16,15 +15,21 @@ type LoginFormProps = {
         signIn: string
         requiredField: string
         incorrectEmail: string
-        noAccount: string
+        signUp: string
+        name: string
+        enterName: string
+        lastName: string
+        enterLastName: string
     }
     locale: string
 }
 
-export const RegisterForm = ({ messages, locale }: LoginFormProps) => {
+export const RegisterForm = ({ messages, locale }: RegisterFormProps) => {
     const validationSchema = Yup.object({
         email: Yup.string().email(messages.incorrectEmail).required(messages.requiredField),
         password: Yup.string().required(messages.requiredField),
+        name: Yup.string().required(messages.requiredField),
+        lastName: Yup.string(),
     })
 
     return (
@@ -44,13 +49,16 @@ export const RegisterForm = ({ messages, locale }: LoginFormProps) => {
                         placeholder={messages.enterEmail}
                         variant="bordered"
                         name="email"
-                        onValueChange={() => console.log(errors, touched)}
+                    />
+                    <Input label={messages.name} placeholder={messages.enterName} variant="bordered" name="name" />
+                    <Input
+                        label={messages.lastName}
+                        placeholder={messages.enterLastName}
+                        variant="bordered"
+                        name="lastName"
                     />
                     <PasswordInput label={messages.password} placeholder={messages.enterPassword} name="password" />
                     <Button type="submit">{messages.signIn}</Button>
-                    <Link className="text-primary" href={`/register`}>
-                        {messages.noAccount}
-                    </Link>
                 </Form>
             )}
         </Formik>

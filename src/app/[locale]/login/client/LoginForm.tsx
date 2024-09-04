@@ -44,7 +44,6 @@ export const LoginForm = ({ messages, locale }: LoginFormProps) => {
                         placeholder={messages.enterEmail}
                         variant="bordered"
                         name="email"
-                        onValueChange={() => console.log(errors, touched)}
                     />
                     <PasswordInput label={messages.password} placeholder={messages.enterPassword} name="password" />
                     <Button type="submit">{messages.signIn}</Button>
