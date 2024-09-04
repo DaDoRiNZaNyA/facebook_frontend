@@ -25,7 +25,7 @@ export default async function Login({ params: { locale } }: LoginProps) {
     }
     return (
         <section className="flex flex-col items-center justify-center h-full">
-            <RegisterForm messages={messages} locale={locale} />
+            <RegisterForm messages={messages} />
         </section>
     )
 }

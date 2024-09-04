@@ -20,7 +20,7 @@ export default async function Login({ params: { locale } }: LoginProps) {
     }
     return (
         <section className="flex flex-col items-center justify-center h-full">
-            <LoginForm messages={messages} locale={locale} />
+            <LoginForm messages={messages} />
         </section>
     )
 }

@@ -21,10 +21,9 @@ type RegisterFormProps = {
         lastName: string
         enterLastName: string
     }
-    locale: string
 }
 
-export const RegisterForm = ({ messages, locale }: RegisterFormProps) => {
+export const RegisterForm = ({ messages }: RegisterFormProps) => {
     const validationSchema = Yup.object({
         email: Yup.string().email(messages.incorrectEmail).required(messages.requiredField),
         password: Yup.string().required(messages.requiredField),

@@ -18,10 +18,9 @@ type LoginFormProps = {
         incorrectEmail: string
         noAccount: string
     }
-    locale: string
 }
 
-export const LoginForm = ({ messages, locale }: LoginFormProps) => {
+export const LoginForm = ({ messages }: LoginFormProps) => {
     const validationSchema = Yup.object({
         email: Yup.string().email(messages.incorrectEmail).required(messages.requiredField),
         password: Yup.string().required(messages.requiredField),
