@@ -1,27 +1,16 @@
 'use client'
 import React from 'react'
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/dropdown'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from '@/navigation'
 import { Button } from '@nextui-org/button'
+import { Locale } from '@/types'
 
 export default function LanguageSwitcher({ locale }: { locale: string }) {
     const router = useRouter()
     const pathname = usePathname()
 
-    const handleLanguageChange = (lang: string) => {
-        let newUrl = ''
-        if (lang === 'ru') {
-            if (pathname.startsWith('/ru')) {
-                newUrl = pathname
-            } else {
-                newUrl = '/ru' + pathname
-            }
-        } else {
-            if (pathname.startsWith('/ru')) {
-                newUrl = pathname.replace('/ru', '')
-            }
-        }
-        router.push(newUrl)
+    const handleLanguageChange = (lang: Locale) => {
+        router.push(pathname, { locale: lang })
     }
 
     return (
