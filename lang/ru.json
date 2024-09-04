@@ -1,0 +1,9 @@
+{
+    "email": "Email",
+    "enterEmail": "Введите свой email",
+    "password": "Пароль",
+    "enterPassword": "Введите свой пароль",
+    "signIn": "Войти",
+    "requiredField": "Обязательное поле",
+    "incorrectEmail": "Некорректный формат электронной почты"
+}

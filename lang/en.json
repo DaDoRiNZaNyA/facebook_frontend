@@ -1,0 +1,9 @@
+{
+    "email": "Email",
+    "enterEmail": "Enter your email",
+    "password": "Password",
+    "enterPassword": "Enter your password",
+    "signIn": "Sign in",
+    "requiredField": "Required field",
+    "incorrectEmail": "Incorrect email format"
+}
