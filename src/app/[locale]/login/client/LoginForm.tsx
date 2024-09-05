@@ -1,11 +1,12 @@
 'use client'
-import { MailIcon } from '@/components/icons'
-import Input from '@/components/Input'
-import PasswordInput from '@/components/PasswordInput'
+import { MailIcon } from '@/shared/components/icons'
+import Input from '@/shared/components/Input'
+import PasswordInput from '@/shared/components/PasswordInput'
 import { Button } from '@nextui-org/button'
 import { Form, Formik } from 'formik'
 import { Link } from '@/navigation'
 import * as Yup from 'yup'
+import { useLogin } from '@/entities/Auth/api/hooks'
 
 type LoginFormProps = {
     messages: {
@@ -21,6 +22,7 @@ type LoginFormProps = {
 }
 
 export const LoginForm = ({ messages }: LoginFormProps) => {
+    const { mutate: login, isPending } = useLogin()
     const validationSchema = Yup.object({
         email: Yup.string().email(messages.incorrectEmail).required(messages.requiredField),
         password: Yup.string().required(messages.requiredField),
@@ -29,7 +31,7 @@ export const LoginForm = ({ messages }: LoginFormProps) => {
     return (
         <Formik
             initialValues={{ email: '', password: '' }}
-            onSubmit={() => console.log('submitted')}
+            onSubmit={(values) => login({ email: values.email, password: values.password })}
             validationSchema={validationSchema}
         >
             {({ errors, touched }) => (
@@ -45,7 +47,9 @@ export const LoginForm = ({ messages }: LoginFormProps) => {
                         name="email"
                     />
                     <PasswordInput label={messages.password} placeholder={messages.enterPassword} name="password" />
-                    <Button type="submit">{messages.signIn}</Button>
+                    <Button isLoading={isPending} type="submit">
+                        {messages.signIn}
+                    </Button>
                     <Link className="text-primary" href={`/register`}>
                         {messages.noAccount}
                     </Link>

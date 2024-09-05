@@ -1,4 +1,4 @@
-import { getIntl } from '@/lib/intl'
+import { getIntl } from '@/shared/lib/intl'
 import { LoginForm } from './client/LoginForm'
 
 type LoginProps = {

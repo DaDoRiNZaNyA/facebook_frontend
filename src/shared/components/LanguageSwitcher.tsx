@@ -3,7 +3,7 @@ import React from 'react'
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/dropdown'
 import { usePathname, useRouter } from '@/navigation'
 import { Button } from '@nextui-org/button'
-import { Locale } from '@/types'
+import { Locale } from '@/shared/types'
 
 export default function LanguageSwitcher({ locale }: { locale: string }) {
     const router = useRouter()

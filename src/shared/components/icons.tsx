@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { IconSvgProps } from '@/src/types'
+import { IconSvgProps } from '@/shared/types'
 
 export const MoonFilledIcon = ({ size = 24, width, height, ...props }: IconSvgProps) => (
     <svg

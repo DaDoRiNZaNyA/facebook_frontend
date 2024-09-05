@@ -1,9 +1,9 @@
 import { Navbar as NextUINavbar, NavbarContent, NavbarItem } from '@nextui-org/navbar'
-import { ThemeSwitch } from '@/components/theme-switch'
+import { ThemeSwitch } from '@/shared/components/theme-switch'
 import { Link } from '@/navigation'
 import { UserIcon } from './icons'
 import LanguageSwitcher from './LanguageSwitcher'
-import { Locale } from '@/types'
+import { Locale } from '@/shared/types'
 
 export const Navbar = ({ locale }: { locale: Locale }) => {
     return (

@@ -1,11 +1,10 @@
-import '@/styles/globals.css'
+import '@/shared/styles/globals.css'
 import { Viewport } from 'next'
 import clsx from 'clsx'
 
-import { fontSans } from '@/config/fonts'
-import { Navbar } from '@/components/navbar'
+import { fontSans } from '@/shared/styles/config/fonts'
 import { Providers } from './providers'
-import { Locale } from '@/types'
+import { Locale } from '@/shared/types'
 
 export const viewport: Viewport = {
     themeColor: [
@@ -14,7 +13,7 @@ export const viewport: Viewport = {
     ],
 }
 
-export default function RootLayout({ children, params }: { children: React.ReactNode; params: { locale: Locale } }) {
+export default function Layout({ children, params }: { children: React.ReactNode; params: { locale: Locale } }) {
     const { locale } = params
 
     return (
