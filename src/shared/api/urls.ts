@@ -7,4 +7,5 @@ export const AUTH_URLS = {
 
 export const POSTS_URLS = {
     POSTS: 'posts',
+    MY_POSTS: 'posts/my',
 }

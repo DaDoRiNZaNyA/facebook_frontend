@@ -24,5 +24,7 @@
     "myPosts": "Мои посты",
     "logout": "Выход",
     "successCreatePost": "Пост успешно создан",
-    "failedCreatePost": "Не удалось создать пост"
+    "failedCreatePost": "Не удалось создать пост",
+    "newPost": "Новый пост",
+    "search": "Поиск"
 }

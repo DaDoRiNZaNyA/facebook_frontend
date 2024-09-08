@@ -23,6 +23,13 @@ export const CreatePostForm = ({ locale, messages }: CreatePostFormProps) => {
             if (editorRef.current) {
                 const quill = new Quill(editorRef.current, {
                     theme: 'snow',
+                    modules: {
+                        toolbar: [
+                            [{ header: '1' }, { header: '2' }, { header: '3' }],
+                            ['bold', 'italic', 'underline'],
+                            ['link'],
+                        ],
+                    },
                 })
                 quill.on(Quill.events.TEXT_CHANGE, (delta, oldDelta, source) => {
                     const content = quill.root.innerHTML

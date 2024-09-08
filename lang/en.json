@@ -24,5 +24,7 @@
     "myPosts": "My posts",
     "logout": "Logout",
     "successCreatePost": "Successfully created post",
-    "failedCreatePost": "Failed to create post"
+    "failedCreatePost": "Failed to create post",
+    "newPost": "New post",
+    "search": "Search"
 }

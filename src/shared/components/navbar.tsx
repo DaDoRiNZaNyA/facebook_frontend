@@ -39,21 +39,11 @@ export const Navbar = ({
                                 />
                             </DropdownTrigger>
                             <DropdownMenu aria-label="Profile Actions" variant="flat">
-                                <DropdownItem
-                                    key="profile"
-                                    href="/profile"
-                                    as={Link}
-                                    startContent={<UserIcon size={20} />}
-                                >
-                                    {messages.myProfile}
+                                <DropdownItem key="profile" startContent={<UserIcon size={20} />}>
+                                    <Link href="/profile">{messages.myProfile}</Link>
                                 </DropdownItem>
-                                <DropdownItem
-                                    key="posts"
-                                    href="/profile/posts"
-                                    as={Link}
-                                    startContent={<PostIcon size={20} />}
-                                >
-                                    {messages.myPosts}
+                                <DropdownItem key="posts" startContent={<PostIcon size={20} />}>
+                                    <Link href="/profile/posts">{messages.myPosts}</Link>
                                 </DropdownItem>
                                 <DropdownItem
                                     key="logout"
