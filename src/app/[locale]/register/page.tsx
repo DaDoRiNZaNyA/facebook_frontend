@@ -13,7 +13,6 @@ export default async function Login({ params: { locale } }: LoginProps) {
         enterEmail: intl.formatMessage({ id: 'enterEmail' }),
         password: intl.formatMessage({ id: 'password' }),
         enterPassword: intl.formatMessage({ id: 'enterPassword' }),
-        signIn: intl.formatMessage({ id: 'signIn' }),
         requiredField: intl.formatMessage({ id: 'requiredField' }),
         incorrectEmail: intl.formatMessage({ id: 'incorrectEmail' }),
         noAccount: intl.formatMessage({ id: 'noAccount' }),
@@ -22,10 +21,11 @@ export default async function Login({ params: { locale } }: LoginProps) {
         lastName: intl.formatMessage({ id: 'lastName' }),
         enterLastName: intl.formatMessage({ id: 'enterLastName' }),
         signUp: intl.formatMessage({ id: 'signUp' }),
+        confirmPassword: intl.formatMessage({ id: 'confirmPassword' }),
     }
     return (
         <section className="flex flex-col items-center justify-center h-full">
-            <RegisterForm messages={messages} />
+            <RegisterForm messages={messages} locale={locale} />
         </section>
     )
 }

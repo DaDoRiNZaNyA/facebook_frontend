@@ -11,5 +11,18 @@
     "enterName": "Введите свое имя",
     "lastName": "Фамилия",
     "enterLastName": "Введите свою фамилию",
-    "signUp": "Зарегистрироваться"
+    "signUp": "Зарегистрироваться",
+    "incorrectLoginOrPassword": "Неверный логин или пароль",
+    "successfullyLogin": "Вы успешно авторизированы",
+    "failedRegistration": "Регистрация не удалась",
+    "successRegistration": "Вы успешно зарегистрировались",
+    "confirmPassword": "Пароли не совпадают",
+    "save": "Сохранить",
+    "failedUpdateProfile": "Не удалось обновить профиль",
+    "successUpdateProfile": "Профиль успешно обновлен",
+    "myProfile": "Мой профиль",
+    "myPosts": "Мои посты",
+    "logout": "Выход",
+    "successCreatePost": "Пост успешно создан",
+    "failedCreatePost": "Не удалось создать пост"
 }

@@ -1,55 +1,46 @@
 'use client'
-import { useRegister } from '@/entities/Auth/api/hooks'
+import { useProfile, useUpdateProfile } from '@/entities/Auth/api/hooks'
 import { MailIcon } from '@/shared/components/icons'
 import Input from '@/shared/components/Input'
-import PasswordInput from '@/shared/components/PasswordInput'
 import { Button } from '@nextui-org/button'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
-type RegisterFormProps = {
+type ProfileFormProps = {
     messages: {
         email: string
         enterEmail: string
-        password: string
-        confirmPassword: string
-        enterPassword: string
         requiredField: string
         incorrectEmail: string
-        signUp: string
         name: string
         enterName: string
         lastName: string
         enterLastName: string
+        save: string
     }
     locale: string
 }
 
-export const RegisterForm = ({ messages, locale }: RegisterFormProps) => {
-    const { mutate } = useRegister()
+export const ProfileForm = ({ messages, locale }: ProfileFormProps) => {
+    const { data: profile } = useProfile()
+    const { mutate, isPending } = useUpdateProfile()
     const validationSchema = Yup.object({
         email: Yup.string().email(messages.incorrectEmail).required(messages.requiredField),
-        password: Yup.string().required(messages.requiredField),
-        confirmPassword: Yup.string()
-            .oneOf([Yup.ref('password'), undefined], messages.confirmPassword)
-            .required(messages.requiredField),
         name: Yup.string().required(messages.requiredField),
         lastName: Yup.string(),
     })
 
     return (
         <Formik
-            initialValues={{ email: '', password: '', confirmPassword: '', name: '', lastName: '' }}
-            onSubmit={(values) =>
-                mutate({
-                    email: values.email,
-                    password: values.password,
-                    name: values.name,
-                    lastName: values.lastName,
-                    locale: locale,
-                })
-            }
+            initialValues={{ email: profile?.email, name: profile?.name, lastName: profile?.lastName }}
+            onSubmit={(values) => {
+                if (values.email && values.name) {
+                    console.log(values)
+                    mutate({ email: values.email, name: values.name, lastName: values.lastName, locale: locale })
+                }
+            }}
             validationSchema={validationSchema}
+            key={profile?.id}
         >
             {({ errors, touched }) => (
                 <Form className="flex flex-col gap-4 md:w-[400px] w-full">
@@ -70,13 +61,9 @@ export const RegisterForm = ({ messages, locale }: RegisterFormProps) => {
                         variant="bordered"
                         name="lastName"
                     />
-                    <PasswordInput label={messages.password} placeholder={messages.enterPassword} name="password" />
-                    <PasswordInput
-                        label={messages.confirmPassword}
-                        placeholder={messages.confirmPassword}
-                        name="confirmPassword"
-                    />
-                    <Button type="submit">{messages.signUp}</Button>
+                    <Button isDisabled={isPending} type="submit">
+                        {messages.save}
+                    </Button>
                 </Form>
             )}
         </Formik>

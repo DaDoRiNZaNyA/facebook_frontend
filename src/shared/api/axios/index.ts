@@ -12,7 +12,7 @@ export const httpClient = axios.create({
 httpClient.interceptors.request.use(
     async (config) => {
         try {
-            const token = localStorage.getItem('accessToken')
+            const token = localStorage.getItem('access')
 
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`

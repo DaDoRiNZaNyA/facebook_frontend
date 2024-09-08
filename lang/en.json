@@ -11,5 +11,18 @@
     "enterName": "Enter your name",
     "lastName": "Last name",
     "enterLastName": "Enter your last name",
-    "signUp": "Sign up"
+    "signUp": "Sign up",
+    "incorrectLoginOrPassword": "Incorrect login or password",
+    "successfullyLogin": "Successfully logged in",
+    "failedRegistration": "Failed registration",
+    "successRegistration": "Successfully registered",
+    "confirmPassword": "Confirm password",
+    "save": "Save",
+    "failedUpdateProfile": "Failed update profile",
+    "successUpdateProfile": "Successfully updated profile",
+    "myProfile": "My profile",
+    "myPosts": "My posts",
+    "logout": "Logout",
+    "successCreatePost": "Successfully created post",
+    "failedCreatePost": "Failed to create post"
 }

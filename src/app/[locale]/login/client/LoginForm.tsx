@@ -19,9 +19,10 @@ type LoginFormProps = {
         incorrectEmail: string
         noAccount: string
     }
+    locale: string
 }
 
-export const LoginForm = ({ messages }: LoginFormProps) => {
+export const LoginForm = ({ messages, locale }: LoginFormProps) => {
     const { mutate: login, isPending } = useLogin()
     const validationSchema = Yup.object({
         email: Yup.string().email(messages.incorrectEmail).required(messages.requiredField),
@@ -31,7 +32,7 @@ export const LoginForm = ({ messages }: LoginFormProps) => {
     return (
         <Formik
             initialValues={{ email: '', password: '' }}
-            onSubmit={(values) => login({ email: values.email, password: values.password })}
+            onSubmit={(values) => login({ email: values.email, password: values.password, locale })}
             validationSchema={validationSchema}
         >
             {({ errors, touched }) => (
