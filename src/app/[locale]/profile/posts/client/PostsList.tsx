@@ -1,13 +1,14 @@
 'use client'
 import { useGetMyPosts } from '@/entities/Posts/api/hooks'
 import { Link } from '@/navigation'
-import { PlusIcon, SearchIcon } from '@/shared/components/icons'
+import { DeleteIcon, EditIcon, KebabIcon, PlusIcon, SearchIcon } from '@/shared/components/icons'
 import { PostCard } from '@/shared/components/PostCard'
 import { Button } from '@nextui-org/button'
 import { Spinner } from '@nextui-org/spinner'
 import { useState } from 'react'
 import { Pagination } from '@nextui-org/pagination'
 import { Input } from '@nextui-org/input'
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown'
 
 type Props = {
     messages: {
@@ -34,7 +35,36 @@ export const PostsList = ({ messages }: Props) => {
                     {messages.newPost}
                 </Button>
             </div>
-            {isPending ? <Spinner /> : data?.data.map((post) => <PostCard props={post} />)}
+            {isPending ? (
+                <Spinner />
+            ) : (
+                data?.data.map((post) => (
+                    <div className="relative flex justify-center w-full" key={post.id}>
+                        <PostCard props={post} />
+
+                        <div className="absolute top-0 xl:right-1/4 right-0 z-10 bg-transparent">
+                            <Dropdown placement="bottom-end" backdrop="blur">
+                                <DropdownTrigger>
+                                    <Button startContent={<KebabIcon />} isIconOnly className="bg-transparent" />
+                                </DropdownTrigger>
+                                <DropdownMenu variant="flat">
+                                    <DropdownItem key="edit" startContent={<EditIcon size={22} />}>
+                                        Edit
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        key="delete"
+                                        color="danger"
+                                        className="text-danger"
+                                        startContent={<DeleteIcon size={22} />}
+                                    >
+                                        Delete
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        </div>
+                    </div>
+                ))
+            )}
             {data && data?.pagination?.totalPages > 1 && (
                 <Pagination total={data.pagination.totalPages} page={page} onChange={setPage} />
             )}
