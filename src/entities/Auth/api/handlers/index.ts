@@ -1,5 +1,5 @@
 import { httpClient } from '@/shared/api/axios'
-import { AUTH_URLS } from '@/shared/api/urls'
+import { AUTH_URLS, FOLLOW_URLS } from '@/shared/api/urls'
 
 export const login = async (data: LoginData) => {
     const { locale, ...rest } = data
@@ -18,4 +18,8 @@ export const getProfile = async () => {
 export const updateProfile = async (data: UpdateProfilenData) => {
     const { locale, ...rest } = data
     return await httpClient.put<never, Profile>(AUTH_URLS.UPDATE_PROFILE, rest)
+}
+
+export const getFollowing = async () => {
+    return await httpClient.get<never, Following[]>(FOLLOW_URLS.FOLLOWING)
 }

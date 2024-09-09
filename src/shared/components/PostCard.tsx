@@ -6,11 +6,12 @@ import { Image } from '@nextui-org/image'
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@nextui-org/modal'
 import NextImage from 'next/image'
 import { CommentIcon, DislikeIcon, LikeIcon, ShareIcon } from './icons'
+import { Link } from '@/navigation'
 
 export const PostCard = ({ props }: { props: PostWithUser }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
-        <>
+        <Link href={'/posts/' + props.id} className="xl:w-1/2 w-full hover:shadow-xl">
             <Modal
                 backdrop="blur"
                 isOpen={isOpen}
@@ -33,9 +34,9 @@ export const PostCard = ({ props }: { props: PostWithUser }) => {
                     </>
                 </ModalContent>
             </Modal>
-            <Card className="xl:w-1/2 w-full">
+            <Card>
                 <CardHeader className="justify-between">
-                    <div className="flex gap-5">
+                    <Link href={'/users/' + props.user.id} className="flex gap-5">
                         <Avatar isBordered radius="full" size="md" />
                         <div className="flex flex-col gap-1 items-start justify-center">
                             <h4 className="text-small font-semibold leading-none text-default-600">
@@ -43,10 +44,10 @@ export const PostCard = ({ props }: { props: PostWithUser }) => {
                             </h4>
                             {/* <h5 className="text-small tracking-tight text-default-400">@zoeylang</h5> */}
                         </div>
-                    </div>
+                    </Link>
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small text-default-400 overflow-hidden">
-                    <div dangerouslySetInnerHTML={{ __html: props.text }}></div>
+                    <div className="max-h-[300px]" dangerouslySetInnerHTML={{ __html: props.text }}></div>
                     {props.media && (
                         <button className="rounded-lg overflow-hidden w-[300px]" onClick={onOpen}>
                             <NextImage
@@ -71,6 +72,6 @@ export const PostCard = ({ props }: { props: PostWithUser }) => {
                     </ButtonGroup>
                 </CardFooter>
             </Card>
-        </>
+        </Link>
     )
 }

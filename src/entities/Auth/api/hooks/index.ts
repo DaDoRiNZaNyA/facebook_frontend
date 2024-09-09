@@ -1,5 +1,5 @@
 import { useRouter } from '@/navigation'
-import { getProfile, login, register, updateProfile } from '../handlers'
+import { getFollowing, getProfile, login, register, updateProfile } from '../handlers'
 import { toastService } from '@/shared/lib/toast'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { httpClient } from '@/shared/api/axios'
@@ -77,4 +77,11 @@ export const useUpdateProfile = () => {
     })
 
     return { isPending, mutate }
+}
+
+export const useGetFollowing = () => {
+    return useQuery({
+        queryKey: ['following'],
+        queryFn: () => getFollowing(),
+    })
 }

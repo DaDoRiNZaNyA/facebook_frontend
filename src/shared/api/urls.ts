@@ -8,4 +8,11 @@ export const AUTH_URLS = {
 export const POSTS_URLS = {
     POSTS: 'posts',
     MY_POSTS: 'posts/my',
+    POST: 'posts/post',
+}
+
+export const FOLLOW_URLS = {
+    FOLLOW: 'follow',
+    FOLLOWING: 'follow/following',
+    FOLLOWERS: 'follow/followers',
 }

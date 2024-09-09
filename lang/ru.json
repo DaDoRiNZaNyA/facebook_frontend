@@ -26,5 +26,12 @@
     "successCreatePost": "Пост успешно создан",
     "failedCreatePost": "Не удалось создать пост",
     "newPost": "Новый пост",
-    "search": "Поиск"
+    "search": "Поиск",
+    "successDeletePost": "Пост успешно удален",
+    "failedDeletePost": "Не удалось удалить пост",
+    "yes": "Да",
+    "no": "Нет",
+    "doYouWantToDeletePost": "Вы уверены, что хотите удалить пост?",
+    "successUpdatePost": "Пост успешно обновлен",
+    "failedUpdatePost": "Не удалось обновить пост"
 }

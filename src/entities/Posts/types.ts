@@ -30,3 +30,5 @@ type PostWithUser = Post & {
         lastName: string
     }
 }
+
+type UpdatePost = CreatePost & { id: number }

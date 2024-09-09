@@ -48,7 +48,7 @@ export default function BaseLayout({
                             <Tab
                                 key="users"
                                 title={
-                                    <Link href={profile ? `/friends` : `/login`} locale={locale}>
+                                    <Link href={profile ? `/following` : `/login`} locale={locale}>
                                         <UsersIcon size={30} />
                                     </Link>
                                 }

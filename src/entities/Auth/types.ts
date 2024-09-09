@@ -35,3 +35,11 @@ type UpdateProfilenData = {
     lastName?: string
     locale: string
 }
+
+type Following = {
+    id: number
+    followerId: number
+    followingId: number
+    createdAt: string
+    following: Profile
+}

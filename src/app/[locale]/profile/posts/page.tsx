@@ -11,10 +11,13 @@ export default async function MyPosts({ params: { locale } }: LoginProps) {
     const messages = {
         newPost: intl.formatMessage({ id: 'newPost' }),
         search: intl.formatMessage({ id: 'search' }),
+        yes: intl.formatMessage({ id: 'yes' }),
+        no: intl.formatMessage({ id: 'no' }),
+        doYouWantToDeletePost: intl.formatMessage({ id: 'doYouWantToDeletePost' }),
     }
     return (
         <section className="flex flex-col items-center justify-center h-full">
-            <PostsList messages={messages} />
+            <PostsList messages={messages} locale={locale} />
         </section>
     )
 }
