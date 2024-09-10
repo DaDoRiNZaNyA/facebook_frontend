@@ -99,6 +99,8 @@ export const useFollow = () => {
             const intl = await getIntl(variables.locale)
             await queryClient.invalidateQueries({ queryKey: ['following'] })
             await queryClient.invalidateQueries({ queryKey: ['users'] })
+            await queryClient.invalidateQueries({ queryKey: ['followers'] })
+            await queryClient.invalidateQueries({ queryKey: ['isUserFollowed'] })
             toastService.success(intl.formatMessage({ id: 'sucessFollow' }))
         },
     })
@@ -119,6 +121,8 @@ export const useUnfollow = () => {
             const intl = await getIntl(variables.locale)
             await queryClient.invalidateQueries({ queryKey: ['following'] })
             await queryClient.invalidateQueries({ queryKey: ['users'] })
+            await queryClient.invalidateQueries({ queryKey: ['followers'] })
+            await queryClient.invalidateQueries({ queryKey: ['isUserFollowed'] })
             toastService.success(intl.formatMessage({ id: 'sucessUnfollow' }))
         },
     })

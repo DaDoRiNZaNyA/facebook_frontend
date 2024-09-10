@@ -1,7 +1,7 @@
 import { Navbar as NextUINavbar, NavbarContent, NavbarItem } from '@nextui-org/navbar'
 import { ThemeSwitch } from '@/shared/components/theme-switch'
 import { Link, useRouter } from '@/navigation'
-import { LogoutIcon, PostIcon, UserIcon } from './icons'
+import { LogoutIcon, PostIcon, UserIcon, Users2Icon } from './icons'
 import LanguageSwitcher from './LanguageSwitcher'
 import { Locale } from '@/shared/types'
 import { useProfile } from '@/entities/Auth/api/hooks'
@@ -18,6 +18,7 @@ export const Navbar = ({
         myProfile: string
         myPosts: string
         logout: string
+        followers: string
     }
 }) => {
     const queryClient = useQueryClient()
@@ -44,6 +45,9 @@ export const Navbar = ({
                                 </DropdownItem>
                                 <DropdownItem key="posts" startContent={<PostIcon size={20} />}>
                                     <Link href="/profile/posts">{messages.myPosts}</Link>
+                                </DropdownItem>
+                                <DropdownItem key="followers" startContent={<Users2Icon size={20} />}>
+                                    <Link href="/profile/followers">{messages.followers}</Link>
                                 </DropdownItem>
                                 <DropdownItem
                                     key="logout"

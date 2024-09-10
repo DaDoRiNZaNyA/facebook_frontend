@@ -35,7 +35,6 @@ export const ProfileForm = ({ messages, locale }: ProfileFormProps) => {
             initialValues={{ email: profile?.email, name: profile?.name, lastName: profile?.lastName }}
             onSubmit={(values) => {
                 if (values.email && values.name) {
-                    console.log(values)
                     mutate({ email: values.email, name: values.name, lastName: values.lastName, locale: locale })
                 }
             }}

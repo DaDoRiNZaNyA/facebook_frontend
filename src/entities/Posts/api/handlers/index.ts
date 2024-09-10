@@ -14,15 +14,19 @@ export const deletePost = async (params: { id: number; locale: string }) => {
     return await httpClient.delete<never, any>(POSTS_URLS.POSTS + `/${params.id}`)
 }
 
-export const getPost = async (params: { id: number }) => {
+export const getPostServer = async (params: { id: number }) => {
     const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/' + POSTS_URLS.POST + `/${params.id}`, {
         cache: 'force-cache',
         next: {
-            revalidate: 300,
+            revalidate: 1,
         },
     })
     const post: PostWithUser = await res.json()
     return post
+}
+
+export const getPost = async (params: { id: number; locale: string }) => {
+    return await httpClient.get<never, PostWithUser>(POSTS_URLS.POST + `/${params.id}`)
 }
 
 export const updatePost = async (data: UpdatePost) => {
@@ -31,7 +35,7 @@ export const updatePost = async (data: UpdatePost) => {
 }
 
 export const getPosts = async (params: { page?: number; size?: number; search?: string; userId?: number }) => {
-    return await httpClient.get<never, PaginationResponse<PostWithUser>>(POSTS_URLS.MY_POSTS, { params })
+    return await httpClient.get<never, PaginationResponse<PostWithUser>>(POSTS_URLS.POSTS, { params })
 }
 
 export const getPostsServer = async (params: { page?: number; size?: number; search?: string; userId?: number }) => {
@@ -45,9 +49,13 @@ export const getPostsServer = async (params: { page?: number; size?: number; sea
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${POSTS_URLS.POSTS}?${queryParams}`, {
         cache: 'force-cache',
         next: {
-            revalidate: 300,
+            revalidate: 1,
         },
     })
     const posts: PaginationResponse<PostWithUser> = await res.json()
     return posts
+}
+
+export const likePost = async (data: { postId: number; isLike: boolean }) => {
+    return await httpClient.post<never, { message: string }>(POSTS_URLS.LIKE, data)
 }

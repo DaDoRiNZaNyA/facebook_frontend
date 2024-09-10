@@ -9,6 +9,9 @@ type Post = {
     userId: number
     text: string
     media?: string
+    totalLikes: number
+    totalDislikes: number
+    userReaction: 'like' | 'dislike' | null
     createdAt: string
     updatedAt: string
 }

@@ -19,6 +19,7 @@ export default function BaseLayout({
         myProfile: string
         myPosts: string
         logout: string
+        followers: string
     }
 }) {
     const { locale } = params

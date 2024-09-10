@@ -1,6 +1,6 @@
 import { getIntl } from '@/shared/lib/intl'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { createPost, deletePost, getMyPosts, getPosts, updatePost } from '../handlers'
+import { createPost, deletePost, getMyPosts, getPost, getPosts, likePost, updatePost } from '../handlers'
 import { toastService } from '@/shared/lib/toast'
 import { useRouter } from '@/navigation'
 
@@ -72,9 +72,42 @@ export const useUpdatePost = () => {
     return { isPending, mutate }
 }
 
-export const useGetPosts = (params: { page?: number; size?: number; search?: string; userId?: number }) => {
+export const useGetPosts = ({
+    initialData,
+    ...params
+}: {
+    page?: number
+    size?: number
+    search?: string
+    userId?: number
+    initialData?: PaginationResponse<PostWithUser>
+}) => {
     return useQuery({
         queryKey: ['posts', params],
         queryFn: () => getPosts(params),
+        initialData: initialData,
+    })
+}
+
+export const useLikePost = () => {
+    const queryClient = useQueryClient()
+    const { isPending, mutate } = useMutation({
+        mutationFn: likePost,
+        mutationKey: ['likePost'],
+        onSuccess: async (data, variables) => {
+            await queryClient.invalidateQueries({ queryKey: ['myPosts'] })
+            await queryClient.invalidateQueries({ queryKey: ['posts'] })
+            await queryClient.invalidateQueries({ queryKey: ['post'] })
+        },
+    })
+
+    return { isPending, mutate }
+}
+
+export const useGetPost = ({ initialData, ...params }: { id: number; locale: string; initialData?: PostWithUser }) => {
+    return useQuery({
+        queryKey: ['post', params],
+        queryFn: () => getPost(params),
+        initialData: initialData,
     })
 }

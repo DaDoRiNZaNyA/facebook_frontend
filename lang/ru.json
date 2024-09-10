@@ -39,5 +39,6 @@
     "follow": "Подписаться",
     "unfollow": "Отписаться",
     "failedUnfollow": "Не удалось отписаться",
-    "sucessUnfollow": "Вы успешно отписались"
+    "sucessUnfollow": "Вы успешно отписались",
+    "followers": "Мои подписчики"
 }

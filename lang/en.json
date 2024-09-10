@@ -39,5 +39,6 @@
     "follow": "Follow",
     "unfollow": "Unfollow",
     "failedUnfollow": "Failed to unfollow",
-    "sucessUnfollow": "Successfully unfollowed"
+    "sucessUnfollow": "Successfully unfollowed",
+    "followers": "My followers"
 }

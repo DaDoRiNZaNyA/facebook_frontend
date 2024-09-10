@@ -7,12 +7,18 @@ import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@nex
 import NextImage from 'next/image'
 import { CommentIcon, DislikeIcon, LikeIcon, ShareIcon } from './icons'
 import { Link, useRouter } from '@/navigation'
+import { useLikePost } from '@/entities/Posts/api/hooks'
 
 export const PostCard = ({ props }: { props: PostWithUser }) => {
     const { push } = useRouter()
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { mutate: like } = useLikePost()
+
     return (
-        <Link href={'/posts/' + props.id} className="xl:w-1/2 w-full hover:shadow-xl">
+        <div
+            className="relative xl:w-1/2 w-full hover:shadow-xl cursor-pointer"
+            onClick={() => push('/posts/' + props.id)}
+        >
             <Modal
                 backdrop="blur"
                 isOpen={isOpen}
@@ -35,17 +41,21 @@ export const PostCard = ({ props }: { props: PostWithUser }) => {
                     </>
                 </ModalContent>
             </Modal>
-            <Card className="w-full">
-                <CardHeader
-                    className="w-full cursor-pointer flex gap-5"
-                    onClick={() => push('/users/' + props.user.id)}
-                >
-                    <Avatar isBordered radius="full" size="md" />
-                    <div className="flex flex-col gap-1 items-start justify-center">
-                        <h4 className="text-small font-semibold leading-none text-default-600">
-                            {props.user.name + ' ' + props.user.lastName}
-                        </h4>
-                    </div>
+            <Card className="w-full py-[60px]">
+                <CardHeader className="absolute cursor-pointer flex  top-0 w-fit">
+                    <Button
+                        onClick={() => {
+                            push('/users/' + props.user.id)
+                        }}
+                        className="flex items-center gap-5 z-10 bg-transparent !p-0 overflow-visible"
+                    >
+                        <Avatar isBordered radius="full" size="md" />
+                        <div className="flex flex-col gap-1 items-start justify-center">
+                            <h4 className="text-small font-semibold leading-none text-default-600">
+                                {props.user.name + ' ' + props.user.lastName}
+                            </h4>
+                        </div>
+                    </Button>
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small text-default-400 overflow-hidden">
                     <div className="max-h-[300px]" dangerouslySetInnerHTML={{ __html: props.text }}></div>
@@ -62,17 +72,27 @@ export const PostCard = ({ props }: { props: PostWithUser }) => {
                         </button>
                     )}
                 </CardBody>
-                <CardFooter className="gap-3">
+                <CardFooter className="gap-3 absolute bottom-0">
                     <ButtonGroup variant="bordered">
-                        <Button startContent={<LikeIcon size={16} />} color="danger">
-                            100
+                        <Button
+                            startContent={<LikeIcon size={16} />}
+                            color={props.userReaction === 'like' ? 'danger' : 'default'}
+                            onClick={() => like({ postId: props.id, isLike: true })}
+                        >
+                            {props.totalLikes}
                         </Button>
-                        <Button startContent={<DislikeIcon size={16} />}>100</Button>
+                        <Button
+                            startContent={<DislikeIcon size={16} />}
+                            color={props.userReaction === 'dislike' ? 'danger' : 'default'}
+                            onClick={() => like({ postId: props.id, isLike: false })}
+                        >
+                            {props.totalDislikes}
+                        </Button>
                         <Button startContent={<CommentIcon size={16} />}>100</Button>
                         <Button startContent={<ShareIcon size={30} />} isIconOnly></Button>
                     </ButtonGroup>
                 </CardFooter>
             </Card>
-        </Link>
+        </div>
     )
 }
