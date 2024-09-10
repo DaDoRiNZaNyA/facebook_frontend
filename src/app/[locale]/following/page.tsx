@@ -9,7 +9,9 @@ export default async function Following({ params: { locale } }: LoginProps) {
     const intl = await getIntl(locale)
 
     const messages = {
-        email: intl.formatMessage({ id: 'email' }),
+        search: intl.formatMessage({ id: 'search' }),
+        follow: intl.formatMessage({ id: 'follow' }),
+        unfollow: intl.formatMessage({ id: 'unfollow' }),
     }
     return (
         <section className="flex flex-col items-center justify-center h-full">

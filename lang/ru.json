@@ -33,5 +33,11 @@
     "no": "Нет",
     "doYouWantToDeletePost": "Вы уверены, что хотите удалить пост?",
     "successUpdatePost": "Пост успешно обновлен",
-    "failedUpdatePost": "Не удалось обновить пост"
+    "failedUpdatePost": "Не удалось обновить пост",
+    "failedFollow": "Не удалось подписаться",
+    "sucessFollow": "Вы успешно подписались",
+    "follow": "Подписаться",
+    "unfollow": "Отписаться",
+    "failedUnfollow": "Не удалось отписаться",
+    "sucessUnfollow": "Вы успешно отписались"
 }

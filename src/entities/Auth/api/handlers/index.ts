@@ -23,3 +23,11 @@ export const updateProfile = async (data: UpdateProfilenData) => {
 export const getFollowing = async () => {
     return await httpClient.get<never, Following[]>(FOLLOW_URLS.FOLLOWING)
 }
+
+export const follow = async ({ locale, userId }: { userId: number; locale: string }) => {
+    return await httpClient.post<never, any>(FOLLOW_URLS.FOLLOW + '/' + userId)
+}
+
+export const unfollow = async ({ locale, userId }: { userId: number; locale: string }) => {
+    return await httpClient.delete<never, any>(FOLLOW_URLS.FOLLOW + '/' + userId)
+}

@@ -1,6 +1,6 @@
 import { getIntl } from '@/shared/lib/intl'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { createPost, deletePost, getMyPosts, updatePost } from '../handlers'
+import { createPost, deletePost, getMyPosts, getPosts, updatePost } from '../handlers'
 import { toastService } from '@/shared/lib/toast'
 import { useRouter } from '@/navigation'
 
@@ -70,4 +70,11 @@ export const useUpdatePost = () => {
     })
 
     return { isPending, mutate }
+}
+
+export const useGetPosts = (params: { page?: number; size?: number; search?: string; userId?: number }) => {
+    return useQuery({
+        queryKey: ['posts', params],
+        queryFn: () => getPosts(params),
+    })
 }

@@ -6,9 +6,10 @@ import { Image } from '@nextui-org/image'
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@nextui-org/modal'
 import NextImage from 'next/image'
 import { CommentIcon, DislikeIcon, LikeIcon, ShareIcon } from './icons'
-import { Link } from '@/navigation'
+import { Link, useRouter } from '@/navigation'
 
 export const PostCard = ({ props }: { props: PostWithUser }) => {
+    const { push } = useRouter()
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <Link href={'/posts/' + props.id} className="xl:w-1/2 w-full hover:shadow-xl">
@@ -34,17 +35,17 @@ export const PostCard = ({ props }: { props: PostWithUser }) => {
                     </>
                 </ModalContent>
             </Modal>
-            <Card>
-                <CardHeader className="justify-between">
-                    <Link href={'/users/' + props.user.id} className="flex gap-5">
-                        <Avatar isBordered radius="full" size="md" />
-                        <div className="flex flex-col gap-1 items-start justify-center">
-                            <h4 className="text-small font-semibold leading-none text-default-600">
-                                {props.user.name + ' ' + props.user.lastName}
-                            </h4>
-                            {/* <h5 className="text-small tracking-tight text-default-400">@zoeylang</h5> */}
-                        </div>
-                    </Link>
+            <Card className="w-full">
+                <CardHeader
+                    className="w-full cursor-pointer flex gap-5"
+                    onClick={() => push('/users/' + props.user.id)}
+                >
+                    <Avatar isBordered radius="full" size="md" />
+                    <div className="flex flex-col gap-1 items-start justify-center">
+                        <h4 className="text-small font-semibold leading-none text-default-600">
+                            {props.user.name + ' ' + props.user.lastName}
+                        </h4>
+                    </div>
                 </CardHeader>
                 <CardBody className="px-3 py-0 text-small text-default-400 overflow-hidden">
                     <div className="max-h-[300px]" dangerouslySetInnerHTML={{ __html: props.text }}></div>

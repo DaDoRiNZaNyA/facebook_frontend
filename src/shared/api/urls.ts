@@ -16,3 +16,7 @@ export const FOLLOW_URLS = {
     FOLLOWING: 'follow/following',
     FOLLOWERS: 'follow/followers',
 }
+
+export const USERS_URLS = {
+    USERS: 'users',
+}

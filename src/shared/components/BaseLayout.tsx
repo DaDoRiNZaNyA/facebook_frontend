@@ -25,7 +25,6 @@ export default function BaseLayout({
     const { theme } = useTheme()
     const { data: profile } = useProfile()
     const pathname = usePathname()
-
     const hideTabsOnPaths = ['/login', '/register', '/someOtherPage']
 
     const shouldShowTabs = !hideTabsOnPaths.includes(pathname)
@@ -36,9 +35,9 @@ export default function BaseLayout({
             <main className="flex-grow w-full p-[15px]">
                 {shouldShowTabs && (
                     <div className="flex items-center justify-center w-full">
-                        <Tabs size="lg">
+                        <Tabs size="lg" selectedKey={pathname}>
                             <Tab
-                                key="home"
+                                key="/"
                                 title={
                                     <Link href={`/`} locale={locale}>
                                         <HomeIcon size={30} />
@@ -46,7 +45,7 @@ export default function BaseLayout({
                                 }
                             />
                             <Tab
-                                key="users"
+                                key="/following"
                                 title={
                                     <Link href={profile ? `/following` : `/login`} locale={locale}>
                                         <UsersIcon size={30} />
@@ -54,7 +53,7 @@ export default function BaseLayout({
                                 }
                             />
                             <Tab
-                                key="messages"
+                                key="/messages"
                                 title={
                                     <Link href={profile ? `/messages` : `/login`} locale={locale}>
                                         <MessagesIcon size={30} />

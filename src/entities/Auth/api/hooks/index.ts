@@ -1,5 +1,5 @@
 import { useRouter } from '@/navigation'
-import { getFollowing, getProfile, login, register, updateProfile } from '../handlers'
+import { follow, getFollowing, getProfile, login, register, unfollow, updateProfile } from '../handlers'
 import { toastService } from '@/shared/lib/toast'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { httpClient } from '@/shared/api/axios'
@@ -84,4 +84,44 @@ export const useGetFollowing = () => {
         queryKey: ['following'],
         queryFn: () => getFollowing(),
     })
+}
+
+export const useFollow = () => {
+    const queryClient = useQueryClient()
+    const { isPending, mutate } = useMutation({
+        mutationFn: follow,
+        mutationKey: ['follow'],
+        onError: async (_, variables) => {
+            const intl = await getIntl(variables.locale)
+            toastService.error(intl.formatMessage({ id: 'failedFollow' }))
+        },
+        onSuccess: async (data, variables) => {
+            const intl = await getIntl(variables.locale)
+            await queryClient.invalidateQueries({ queryKey: ['following'] })
+            await queryClient.invalidateQueries({ queryKey: ['users'] })
+            toastService.success(intl.formatMessage({ id: 'sucessFollow' }))
+        },
+    })
+
+    return { isPending, mutate }
+}
+
+export const useUnfollow = () => {
+    const queryClient = useQueryClient()
+    const { isPending, mutate } = useMutation({
+        mutationFn: unfollow,
+        mutationKey: ['unfollow'],
+        onError: async (_, variables) => {
+            const intl = await getIntl(variables.locale)
+            toastService.error(intl.formatMessage({ id: 'failedUnfollow' }))
+        },
+        onSuccess: async (data, variables) => {
+            const intl = await getIntl(variables.locale)
+            await queryClient.invalidateQueries({ queryKey: ['following'] })
+            await queryClient.invalidateQueries({ queryKey: ['users'] })
+            toastService.success(intl.formatMessage({ id: 'sucessUnfollow' }))
+        },
+    })
+
+    return { isPending, mutate }
 }
