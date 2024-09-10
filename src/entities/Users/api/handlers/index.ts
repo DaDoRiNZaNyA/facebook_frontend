@@ -9,9 +9,9 @@ export const getUsers = async (params: { page?: number; size?: number; search?: 
 
 export const getUser = async (params: { id: number }) => {
     const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/' + USERS_URLS.USERS + `/${params.id}`, {
-        cache: 'force-cache',
+        cache: 'no-cache',
         next: {
-            revalidate: 1,
+            revalidate: 0,
         },
     })
     const user: Profile = await res.json()

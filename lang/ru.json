@@ -40,5 +40,8 @@
     "unfollow": "Отписаться",
     "failedUnfollow": "Не удалось отписаться",
     "sucessUnfollow": "Вы успешно отписались",
-    "followers": "Мои подписчики"
+    "followers": "Мои подписчики",
+    "failedCreateComment": "Не удалось создать комментарий",
+    "failedUpdateComment": "Не удалось обновить комментарий",
+    "failedDeleteComment": "Не удалось удалить комментарий"
 }

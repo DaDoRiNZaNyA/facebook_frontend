@@ -6,7 +6,7 @@ import { Image } from '@nextui-org/image'
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@nextui-org/modal'
 import NextImage from 'next/image'
 import { CommentIcon, DislikeIcon, LikeIcon, ShareIcon } from './icons'
-import { Link, useRouter } from '@/navigation'
+import { useRouter } from '@/navigation'
 import { useLikePost } from '@/entities/Posts/api/hooks'
 
 export const PostCard = ({ props }: { props: PostWithUser }) => {
@@ -88,7 +88,9 @@ export const PostCard = ({ props }: { props: PostWithUser }) => {
                         >
                             {props.totalDislikes}
                         </Button>
-                        <Button startContent={<CommentIcon size={16} />}>100</Button>
+                        <Button startContent={<CommentIcon size={16} />} onClick={() => push('/posts/' + props.id)}>
+                            {props.totalComments}
+                        </Button>
                         <Button startContent={<ShareIcon size={30} />} isIconOnly></Button>
                     </ButtonGroup>
                 </CardFooter>

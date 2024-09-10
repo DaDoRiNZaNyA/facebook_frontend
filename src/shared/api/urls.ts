@@ -10,6 +10,7 @@ export const POSTS_URLS = {
     MY_POSTS: 'posts/my',
     POST: 'posts/post',
     LIKE: 'likes',
+    COMMENTS: 'comments',
 }
 
 export const FOLLOW_URLS = {

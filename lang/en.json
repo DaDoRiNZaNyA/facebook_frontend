@@ -40,5 +40,8 @@
     "unfollow": "Unfollow",
     "failedUnfollow": "Failed to unfollow",
     "sucessUnfollow": "Successfully unfollowed",
-    "followers": "My followers"
+    "followers": "My followers",
+    "failedCreateComment": "Failed to create comment",
+    "failedUpdateComment": "Failed to update comment",
+    "failedDeleteComment": "Failed to delete comment"
 }

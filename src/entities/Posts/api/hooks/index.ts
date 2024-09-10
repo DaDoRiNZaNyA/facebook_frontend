@@ -1,6 +1,18 @@
 import { getIntl } from '@/shared/lib/intl'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { createPost, deletePost, getMyPosts, getPost, getPosts, likePost, updatePost } from '../handlers'
+import {
+    createComment,
+    createPost,
+    deleteComment,
+    deletePost,
+    getMyPosts,
+    getPost,
+    getPostComments,
+    getPosts,
+    likePost,
+    updateComment,
+    updatePost,
+} from '../handlers'
 import { toastService } from '@/shared/lib/toast'
 import { useRouter } from '@/navigation'
 
@@ -110,4 +122,63 @@ export const useGetPost = ({ initialData, ...params }: { id: number; locale: str
         queryFn: () => getPost(params),
         initialData: initialData,
     })
+}
+
+export const useGetPostComments = ({ initialData, id }: { id: number; initialData?: PostComment[] }) => {
+    return useQuery({
+        queryKey: ['postComments', id],
+        queryFn: () => getPostComments({ id }),
+        initialData: initialData,
+    })
+}
+
+export const useCreateComment = () => {
+    const queryClient = useQueryClient()
+    const { isPending, mutate } = useMutation({
+        mutationFn: createComment,
+        mutationKey: ['createComment'],
+        onError: async (_, variables) => {
+            const intl = await getIntl(variables.locale)
+            toastService.error(intl.formatMessage({ id: 'failedCreateComment' }))
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ['postComments'] })
+        },
+    })
+
+    return { isPending, mutate }
+}
+
+export const useUpdateComment = () => {
+    const queryClient = useQueryClient()
+    const { isPending, mutate } = useMutation({
+        mutationFn: updateComment,
+        mutationKey: ['updateComment'],
+        onError: async (_, variables) => {
+            const intl = await getIntl(variables.locale)
+            toastService.error(intl.formatMessage({ id: 'failedUpdateComment' }))
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ['postComments'] })
+        },
+    })
+
+    return { isPending, mutate }
+}
+
+export const useDeleteComment = () => {
+    const queryClient = useQueryClient()
+    const { isPending, mutate } = useMutation({
+        mutationFn: deleteComment,
+        mutationKey: ['deleteComment'],
+        onError: async (_, variables) => {
+            const intl = await getIntl(variables.locale)
+            toastService.error(intl.formatMessage({ id: 'failedDeleteComment' }))
+        },
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ['postComments'] })
+        },
+    })
+
+    return { isPending, mutate }
 }

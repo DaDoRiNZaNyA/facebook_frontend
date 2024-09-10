@@ -11,6 +11,7 @@ type Post = {
     media?: string
     totalLikes: number
     totalDislikes: number
+    totalComments: number
     userReaction: 'like' | 'dislike' | null
     createdAt: string
     updatedAt: string
@@ -35,3 +36,15 @@ type PostWithUser = Post & {
 }
 
 type UpdatePost = CreatePost & { id: number }
+
+type PostComment = {
+    id: number
+    userId: number
+    postId: number
+    text: string
+    parentId: number | null
+    replies: PostComment[]
+    createdAt: string
+    updatedAt: string
+    user: Profile
+}

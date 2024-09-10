@@ -16,9 +16,9 @@ export const deletePost = async (params: { id: number; locale: string }) => {
 
 export const getPostServer = async (params: { id: number }) => {
     const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/' + POSTS_URLS.POST + `/${params.id}`, {
-        cache: 'force-cache',
+        cache: 'no-cache',
         next: {
-            revalidate: 1,
+            revalidate: 0,
         },
     })
     const post: PostWithUser = await res.json()
@@ -47,9 +47,9 @@ export const getPostsServer = async (params: { page?: number; size?: number; sea
     })
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${POSTS_URLS.POSTS}?${queryParams}`, {
-        cache: 'force-cache',
+        cache: 'no-cache',
         next: {
-            revalidate: 1,
+            revalidate: 0,
         },
     })
     const posts: PaginationResponse<PostWithUser> = await res.json()
@@ -58,4 +58,39 @@ export const getPostsServer = async (params: { page?: number; size?: number; sea
 
 export const likePost = async (data: { postId: number; isLike: boolean }) => {
     return await httpClient.post<never, { message: string }>(POSTS_URLS.LIKE, data)
+}
+
+export const getPostComments = async (params: { id: number }) => {
+    return await httpClient.get<never, PostComment[]>(POSTS_URLS.COMMENTS + `/${params.id}`)
+}
+
+export const getPostCommentsServer = async (params: { id: number }) => {
+    const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + '/' + POSTS_URLS.COMMENTS + `/${params.id}`, {
+        cache: 'no-cache',
+        next: {
+            revalidate: 0,
+        },
+    })
+    const comments: PostComment[] = await res.json()
+    return comments
+}
+
+export const createComment = async ({
+    locale,
+    ...data
+}: {
+    postId: number
+    text: string
+    parentId?: number
+    locale: string
+}) => {
+    return await httpClient.post<never, PostComment>(POSTS_URLS.COMMENTS, data)
+}
+
+export const updateComment = async ({ locale, id, ...data }: { id: number; text: string; locale: string }) => {
+    return await httpClient.put<never, PostComment>(POSTS_URLS.COMMENTS + `/${id}`, data)
+}
+
+export const deleteComment = async ({ locale, id }: { id: number; locale: string }) => {
+    return await httpClient.delete<never, PostComment>(POSTS_URLS.COMMENTS + `/${id}`)
 }
