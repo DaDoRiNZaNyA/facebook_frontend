@@ -19,8 +19,12 @@ export const AvatarUploader: React.FC<AvatarUploaderProps> = ({ url, image, setI
     return (
         <div className="flex flex-col items-center">
             <div className="w-36 h-36 bg-default-300 flex justify-center items-center rounded-full overflow-hidden mb-4">
-                {image ? (
-                    <img src={URL.createObjectURL(image)} alt="Avatar preview" className="w-full h-full object-cover" />
+                {image || url ? (
+                    <img
+                        src={image ? URL.createObjectURL(image) : url ? process.env.NEXT_PUBLIC_BACKEND_URL + url : ''}
+                        alt="Avatar preview"
+                        className="w-full h-full object-cover"
+                    />
                 ) : (
                     <span className="text-sm text-default-foreground">Upload Avatar</span>
                 )}

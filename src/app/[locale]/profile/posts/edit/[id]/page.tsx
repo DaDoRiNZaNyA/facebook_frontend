@@ -1,6 +1,6 @@
 import { getIntl } from '@/shared/lib/intl'
 import { EditPostForm } from './client/EditPostForm'
-import { getPost } from '@/entities/Posts/api/handlers'
+import { getPostServer } from '@/entities/Posts/api/handlers'
 import { notFound } from 'next/navigation'
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 }
 
 const fetchData = async (id: number) => {
-    const post = await getPost({ id })
+    const post = await getPostServer({ id })
     return post
 }
 

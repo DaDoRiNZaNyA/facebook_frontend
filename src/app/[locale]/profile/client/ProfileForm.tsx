@@ -35,7 +35,7 @@ export const ProfileForm = ({ messages, locale }: ProfileFormProps) => {
 
     return (
         <div>
-            <AvatarUploader image={avatar} setImage={setAvatar} />
+            <AvatarUploader image={avatar} setImage={setAvatar} url={profile?.avatar} />
             <Formik
                 initialValues={{ email: profile?.email, name: profile?.name, lastName: profile?.lastName }}
                 onSubmit={(values) => {

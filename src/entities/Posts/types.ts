@@ -1,14 +1,22 @@
 type CreatePost = {
     text: string
     locale: string
-    media?: string
+    media: File[]
 }
 
 type Post = {
     id: number
     userId: number
     text: string
-    media?: string
+    media: [
+        {
+            id: number
+            postId: number
+            url: string
+            type: string
+            createdAt: string
+        }
+    ]
     totalLikes: number
     totalDislikes: number
     totalComments: number
@@ -36,7 +44,13 @@ type PostWithUser = Post & {
     }
 }
 
-type UpdatePost = CreatePost & { id: number }
+type UpdatePost = {
+    id: number
+    text: string
+    locale: string
+    deletedMedia: number[]
+    media: File[]
+}
 
 type PostComment = {
     id: number

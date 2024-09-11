@@ -5,6 +5,7 @@ import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 import { Button } from '@nextui-org/button'
 import { useCreatePost } from '@/entities/Posts/api/hooks'
+import { MultiFileUploader } from '@/shared/components/MultiFileUploaderProps'
 
 type CreatePostFormProps = {
     messages: {
@@ -17,6 +18,7 @@ export const CreatePostForm = ({ locale, messages }: CreatePostFormProps) => {
     const { mutate } = useCreatePost()
     const editorRef = useRef<HTMLDivElement>(null)
     const [lastChange, setLastChange] = useState('')
+    const [images, setImages] = useState<File[]>([])
 
     useEffect(() => {
         if (typeof document !== 'undefined') {
@@ -44,9 +46,12 @@ export const CreatePostForm = ({ locale, messages }: CreatePostFormProps) => {
     }, [])
 
     return (
-        <div className="xl:w-1/2 w-full">
-            <div ref={editorRef} />
-            <Button className="mt-[20px]" onClick={() => mutate({ text: lastChange, locale })}>
+        <div className="xl:w-1/2 w-full h-full mt-[20px]">
+            <MultiFileUploader images={images} setImages={setImages} />
+            <div className="mt-[20px]">
+                <div className="max-h-[60vh]" ref={editorRef} />
+            </div>
+            <Button className="mt-[20px]" onClick={() => mutate({ text: lastChange, locale, media: images })}>
                 {messages.save}
             </Button>
         </div>

@@ -5,6 +5,7 @@ import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 import { Button } from '@nextui-org/button'
 import { useUpdatePost } from '@/entities/Posts/api/hooks'
+import { MultiFileUploader } from '@/shared/components/MultiFileUploaderProps'
 
 type EditPostFormProps = {
     messages: {
@@ -19,6 +20,8 @@ export const EditPostForm = ({ locale, messages, post, id }: EditPostFormProps) 
     const { mutate } = useUpdatePost()
     const editorRef = useRef<HTMLDivElement>(null)
     const [lastChange, setLastChange] = useState(post.text)
+    const [images, setImages] = useState<File[]>([])
+    const [deletedImages, setDeletedImages] = useState<number[]>([])
 
     useEffect(() => {
         if (typeof document !== 'undefined') {
@@ -49,9 +52,20 @@ export const EditPostForm = ({ locale, messages, post, id }: EditPostFormProps) 
     }, [])
 
     return (
-        <div className="xl:w-1/2 w-full">
-            <div ref={editorRef} />
-            <Button className="mt-[20px]" onClick={() => mutate({ text: lastChange, locale, id })}>
+        <div className="xl:w-1/2 w-full h-full mt-[20px]">
+            <MultiFileUploader
+                images={images}
+                setImages={setImages}
+                urls={post.media.filter((image) => !deletedImages.includes(image.id))}
+                onDelete={(image) => !deletedImages.includes(image) && setDeletedImages((prev) => [...prev, image])}
+            />
+            <div className="mt-[20px]">
+                <div className="max-h-[60vh]" ref={editorRef} />
+            </div>
+            <Button
+                className="mt-[20px]"
+                onClick={() => mutate({ id, text: lastChange, locale, deletedMedia: deletedImages, media: images })}
+            >
                 {messages.save}
             </Button>
         </div>

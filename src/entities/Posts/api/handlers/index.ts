@@ -2,8 +2,20 @@ import { httpClient } from '@/shared/api/axios'
 import { POSTS_URLS } from '@/shared/api/urls'
 
 export const createPost = async (data: CreatePost) => {
-    const { locale, ...rest } = data
-    return await httpClient.post<never, Post>(POSTS_URLS.POSTS, rest)
+    const { media, text } = data
+    const formData = new FormData()
+    formData.append('text', text)
+    media.forEach((file) => {
+        formData.append(`media`, file)
+    })
+    return await httpClient.post<never, Profile>(POSTS_URLS.POSTS, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+        transformRequest: () => {
+            return formData
+        },
+    })
 }
 
 export const getMyPosts = async (params: { page?: number; size?: number; search?: string }) => {
@@ -30,8 +42,31 @@ export const getPost = async (params: { id: number; locale: string }) => {
 }
 
 export const updatePost = async (data: UpdatePost) => {
-    const { locale, id, ...rest } = data
+    const { locale, id, deletedMedia, media, ...rest } = data
+    await deletePostMedia({ postId: id, media: deletedMedia })
+    await uploadPostMedia({ postId: id, media: media })
     return await httpClient.put<never, Post>(POSTS_URLS.POSTS + `/${id}`, rest)
+}
+
+export const deletePostMedia = async (data: { postId: number; media: number[] }) => {
+    return await httpClient.delete<never, any>(POSTS_URLS.POSTS + `/${data.postId}/media`, {
+        data: { mediaIds: data.media },
+    })
+}
+
+export const uploadPostMedia = async (data: { postId: number; media: File[] }) => {
+    const formData = new FormData()
+    data.media.forEach((file) => {
+        formData.append(`media`, file)
+    })
+    return await httpClient.post<never, any>(POSTS_URLS.POSTS + `/${data.postId}/media`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+        transformRequest: () => {
+            return formData
+        },
+    })
 }
 
 export const getPosts = async (params: { page?: number; size?: number; search?: string; userId?: number }) => {
