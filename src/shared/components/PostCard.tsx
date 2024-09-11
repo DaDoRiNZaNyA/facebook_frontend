@@ -49,7 +49,14 @@ export const PostCard = ({ props }: { props: PostWithUser }) => {
                         }}
                         className="flex items-center gap-5 z-10 bg-transparent !p-0 overflow-visible"
                     >
-                        <Avatar isBordered radius="full" size="md" />
+                        <Avatar
+                            isBordered
+                            radius="full"
+                            size="md"
+                            src={
+                                props.user?.avatar ? process.env.NEXT_PUBLIC_BACKEND_URL + props.user.avatar : undefined
+                            }
+                        />
                         <div className="flex flex-col gap-1 items-start justify-center">
                             <h4 className="text-small font-semibold leading-none text-default-600">
                                 {props.user.name + ' ' + props.user.lastName}

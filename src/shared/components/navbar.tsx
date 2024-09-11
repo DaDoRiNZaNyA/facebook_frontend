@@ -36,7 +36,12 @@ export const Navbar = ({
                                     as="button"
                                     name={profile?.name + ' ' + profile?.lastName}
                                     description={profile?.email}
-                                    avatarProps={{ size: 'sm', src: '' }}
+                                    avatarProps={{
+                                        size: 'sm',
+                                        src: profile?.avatar
+                                            ? process.env.NEXT_PUBLIC_BACKEND_URL + profile.avatar
+                                            : undefined,
+                                    }}
                                 />
                             </DropdownTrigger>
                             <DropdownMenu aria-label="Profile Actions" variant="flat">

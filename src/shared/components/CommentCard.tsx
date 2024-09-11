@@ -28,7 +28,16 @@ export const CommentCard = ({ comment, locale, postId, userId }: Props) => {
             <Card className="relative">
                 <CardHeader className="justify-between relative">
                     <div className="flex flex-row">
-                        <Avatar isBordered radius="full" size="md" />
+                        <Avatar
+                            isBordered
+                            radius="full"
+                            size="md"
+                            src={
+                                comment.user?.avatar
+                                    ? process.env.NEXT_PUBLIC_BACKEND_URL + comment.user.avatar
+                                    : undefined
+                            }
+                        />
                         <div className="flex flex-col gap-1 items-start justify-center ml-[20px]">
                             <h4 className="text-small font-semibold leading-none text-default-600">
                                 {comment.user.name + ' ' + comment.user.lastName}
@@ -124,7 +133,16 @@ export const CommentCard = ({ comment, locale, postId, userId }: Props) => {
                             <Card key={reply.id}>
                                 <CardHeader className="justify-between relative">
                                     <div className="flex flex-row">
-                                        <Avatar isBordered radius="full" size="md" />
+                                        <Avatar
+                                            isBordered
+                                            radius="full"
+                                            size="md"
+                                            src={
+                                                reply.user?.avatar
+                                                    ? process.env.NEXT_PUBLIC_BACKEND_URL + reply.user.avatar
+                                                    : undefined
+                                            }
+                                        />
                                         <div className="flex flex-col gap-1 items-start justify-center ml-[20px]">
                                             <h4 className="text-small font-semibold leading-none text-default-600">
                                                 {reply.user.name + ' ' + reply.user.lastName}

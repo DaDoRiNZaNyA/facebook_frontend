@@ -32,6 +32,7 @@ type PostWithUser = Post & {
         id: number
         name: string
         lastName: string
+        avatar?: string
     }
 }
 

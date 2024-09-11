@@ -26,7 +26,12 @@ export const PostPage = ({
     return (
         <div className="xl:w-1/2 w-full">
             <div className="flex gap-5">
-                <Avatar isBordered radius="full" size="md" />
+                <Avatar
+                    isBordered
+                    radius="full"
+                    size="md"
+                    src={post.user?.avatar ? process.env.NEXT_PUBLIC_BACKEND_URL + post.user.avatar : undefined}
+                />
                 <div className="flex flex-col gap-1 items-start justify-center">
                     <h4 className="text-small font-semibold leading-none text-default-600">
                         {postData?.user.name + ' ' + postData?.user.lastName}

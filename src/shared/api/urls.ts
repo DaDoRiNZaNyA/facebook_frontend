@@ -22,4 +22,5 @@ export const FOLLOW_URLS = {
 
 export const USERS_URLS = {
     USERS: 'users',
+    AVATAR: 'users/avatar',
 }

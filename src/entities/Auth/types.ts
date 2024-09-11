@@ -27,6 +27,7 @@ type Profile = {
     email: string
     name: string
     lastName: string
+    avatar?: string
 }
 
 type UpdateProfilenData = {
@@ -34,6 +35,7 @@ type UpdateProfilenData = {
     name: string
     lastName?: string
     locale: string
+    avatar?: File
 }
 
 type Following = {
