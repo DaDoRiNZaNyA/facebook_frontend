@@ -1,7 +1,7 @@
 'use client'
 
-import { useFollow, useGetFollowing, useUnfollow } from '@/entities/Auth/api/hooks'
-import { useGetUsers } from '@/entities/Users/api/hooks'
+import { useFollow, useGetFollowing, useProfile, useUnfollow } from '@/entities/Auth/api/hooks'
+import { useCreateChatGroup, useGetUsers } from '@/entities/Users/api/hooks'
 import { MessagesIcon, SearchIcon } from '@/shared/components/icons'
 import { UserCard } from '@/shared/components/UserCard'
 import { Button } from '@nextui-org/button'
@@ -25,6 +25,8 @@ export const FollowingList = ({ messages, locale }: Props) => {
     const [search, setSearch] = useState('')
     const { mutate: follow, isPending: followIsPending } = useFollow()
     const { mutate: unfollow, isPending: unfollowIsPending } = useUnfollow()
+    const { data: profile } = useProfile()
+    const { mutate: createChatGroup, isPending: createChatGroupIsPending } = useCreateChatGroup()
     const { data: users, isLoading: usersIsLoading } = useGetUsers({
         page,
         size: 10,
@@ -50,7 +52,15 @@ export const FollowingList = ({ messages, locale }: Props) => {
                         user={following.following}
                         button={
                             <div className="absolute right-[20px] top-1/4 z-10 flex flex-row gap-x-[10px] items-center">
-                                <Button radius="full" size="sm" startContent={<MessagesIcon size={22} />}></Button>
+                                <Button
+                                    radius="full"
+                                    size="sm"
+                                    startContent={<MessagesIcon size={22} />}
+                                    onClick={() =>
+                                        profile && createChatGroup({ userIds: [following.following.id, profile?.id] })
+                                    }
+                                    isLoading={createChatGroupIsPending}
+                                ></Button>
                                 <Button
                                     radius="full"
                                     size="sm"
@@ -71,7 +81,13 @@ export const FollowingList = ({ messages, locale }: Props) => {
                             user={user}
                             button={
                                 <div className="absolute right-[20px] top-1/4 z-10 flex flex-row gap-x-[10px] items-center">
-                                    <Button radius="full" size="sm" startContent={<MessagesIcon size={22} />}></Button>
+                                    <Button
+                                        radius="full"
+                                        size="sm"
+                                        startContent={<MessagesIcon size={22} />}
+                                        onClick={() => profile && createChatGroup({ userIds: [user.id, profile?.id] })}
+                                        isLoading={createChatGroupIsPending}
+                                    ></Button>
                                     <Button
                                         radius="full"
                                         size="sm"

@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
-import { getFollowers, getIsUserFollowed, getUsers } from '../handlers'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { createChatGroup, getFollowers, getIsUserFollowed, getUsers } from '../handlers'
+import { useRouter } from '@/navigation'
 
 export const useGetUsers = ({
     enabled,
@@ -30,4 +31,17 @@ export const useGetFollowers = (params: { page?: number; size?: number }) => {
         queryKey: ['followers', params],
         queryFn: () => getFollowers(params),
     })
+}
+
+export const useCreateChatGroup = () => {
+    const router = useRouter()
+    const { isPending, mutate } = useMutation({
+        mutationFn: createChatGroup,
+        mutationKey: ['createChatGroup'],
+        onSuccess: async (data) => {
+            router.push(`/messages/${data.id}`)
+        },
+    })
+
+    return { isPending, mutate }
 }

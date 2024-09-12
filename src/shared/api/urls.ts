@@ -24,3 +24,7 @@ export const USERS_URLS = {
     USERS: 'users',
     AVATAR: 'users/avatar',
 }
+
+export const CHAT_URLS = {
+    CREATE_GROUP: 'chat/create-group',
+}
